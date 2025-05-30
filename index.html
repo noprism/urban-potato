@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Our Server</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111 url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.2em;
+    }
+    p {
+      font-size: 1.5em;
+    }
+    #tipbox {
+      margin-top: 30px;
+      font-style: italic;
+      opacity: 1;
+      transition: opacity 0.8s ease-in-out;
+      max-width: 80vw;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌐 Verbindung wird hergestellt...</h1>
+  <p>Ich kann es kaum abwarten, dich zu sehen👀</p>
+  <div id="tipbox"></div>
+
+  <script>
+    const tips = [
+      "💡 Tipp: Drücke Alt+F4 um cheats zu nutzen",
+      "🧽 Steuerhinterziehung ist ein guter Weg um am meisten Geld zu sparen",
+      "💬 Triff dich mit anderen Sims um das Sozialbedürfnis zu steigern",
+      "💰 Der Verkauf von Drogen ist einer der luktrativsten Geschäfte, aber auch eines der gefährlichsten",
+      "📢 Scammer werden dich stets nach deinem Passwort fragen",
+      "❌ Nein Patrick, Mayonaise ist kein Instrument!",
+      "🎂 Der Kuchen ist eine Lüge.",
+      "λ Rise and shine, Mr. Freeman...",
+      "⚔ Ich war auch mal einst ein Abenteurer, bis ich einen Pfeil ins Knie bekam",
+      "🐍 Behaltet eure Hände bei euch, diebische Schlange!",
+      "Nein!",
+      "🧩Die inneren Abläufe meines Geistes sind ein Rätsel. [Milchtüte kippt um]",
+      "🗣️ Cry some more!",
+      "🔫Auf deine Zweitwaffe zu wechseln ist immer schneller als Nachladen",
+    ];
+
+    // Event / Seasonal Tips based on date
+    const eventTips = {
+      "5-30": "🎉 Heute ist ein großartiger Tag zum Spielen! Willkommen!",
+      "12-24": "🎄 Frohe Weihnachten! Geschenke warten im Spawnbereich.",
+      "10-31": "🎃 Happy Halloween! Verkleide dich und hab Spaß!",
+      // add more dates here in "M-D" format
+    };
+
+    const tipbox = document.getElementById('tipbox');
+    let lastTipIndex = -1;
+
+    // Get today's date in M-D format
+    const today = new Date();
+    const todayKey = (today.getMonth() + 1) + "-" + today.getDate();
+
+    // If today is an event day, use event tip only once at the start, else normal tips
+    let shownEventTip = false;
+
+    function showRandomTip() {
+      if (!shownEventTip && eventTips[todayKey]) {
+        tipbox.textContent = eventTips[todayKey];
+        shownEventTip = true;
+        return;
+      }
+
+      let index;
+      do {
+        index = Math.floor(Math.random() * tips.length);
+      } while (index === lastTipIndex);
+      lastTipIndex = index;
+      tipbox.textContent = tips[index];
+    }
+
+    // Fade animation helper
+    function fadeTip() {
+      tipbox.style.opacity = 0;
+      setTimeout(() => {
+        showRandomTip();
+        tipbox.style.opacity = 1;
+      }, 800); // matches CSS transition duration
+    }
+
+    // Initial show
+    showRandomTip();
+
+    // Rotate tips with fade effect every 5 seconds
+    setInterval(fadeTip, 5000);
+  </script>
+</body>
+</html>
