@@ -73,6 +73,13 @@
   </style>
 </head>
 <body>
+
+<audio id="bgmusic" autoplay loop>
+  <source src="https://youtu.be/pd2c4Qo8hHw" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+
   <h1>
     🌐 Verbindung wird hergestellt
     <span class="loading-dots">
@@ -83,6 +90,19 @@
   <div id="tipbox"></div>
 
   <script>
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const music = document.getElementById("bgmusic");
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(error => {
+        console.warn("Autoplay-Fehler:", error);
+        // Optional: Zeige dem Nutzer einen Hinweis oder Button zum Starten
+      });
+    }
+  });
+
     const tips = [
       "💡 Tipp: Drücke Alt+F4 um cheats zu nutzen",
       "🧽 Steuerhinterziehung ist ein guter Weg um am meisten Geld zu sparen",
